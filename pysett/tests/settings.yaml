@@ -1,0 +1,14 @@
+common:
+    value: 5
+test:
+    value: 7
+    setting: 1
+    somecomp:
+        username: uname
+        password: pword
+
+production:
+    setting: 2
+    somecomp:
+        username: secret
+        password: secret
