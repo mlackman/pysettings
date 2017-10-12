@@ -21,7 +21,7 @@ class TestObjectFactory(unittest.TestCase):
         self.assertEquals(obj.a, 'm')
 
     def test_deebly_nested_dicts(self):
-        obj = create({'m':{'b':1, 'c':{'d':3}}, 'a':'m'})
+        obj = self.create({'m':{'b':1, 'c':{'d':3}}, 'a':'m'})
 
         self.assertEquals(obj.m.b, 1)
         self.assertEquals(obj.m.c.d, 3)
