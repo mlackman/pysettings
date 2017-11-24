@@ -1,4 +1,6 @@
 common:
+    somecomp:
+        value: 1
     value: 5
 test:
     value: 7
@@ -11,4 +13,3 @@ production:
     setting: 2
     somecomp:
         username: secret
-        password: secret

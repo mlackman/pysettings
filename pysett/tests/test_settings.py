@@ -15,13 +15,14 @@ class TestSettings(unittest.TestCase):
         self.assertEquals(s.setting, 1)
         self.assertEquals(s.somecomp.username, 'uname')
         self.assertEquals(s.somecomp.password, 'pword')
+        self.assertEquals(s.somecomp.value, 1)
 
     def test_production_env_settins(self):
         s = settings.create(env='production', settings=self.filename, secrets={'production':self.production_secret_settings})
 
         self.assertEquals(s.value, 5)
         self.assertEquals(s.setting, 2)
-        self.assertEquals(s.somecomp.username, 'mysecretusername')
+        self.assertEquals(s.somecomp.username, 'secret')
         self.assertEquals(s.somecomp.password, 'mysecretpassword')
 
     @property

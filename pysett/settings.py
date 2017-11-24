@@ -3,9 +3,24 @@ from typing import List
 
 import yaml
 
+def dict_updater(source: dict, dest: dict) -> dict:
+    """
+    Updates source dict with target dict values creating
+    new dict and returning it
+    """
+    target = dest.copy()
+
+    for k, v in source.items():
+        if isinstance(v, dict) and k in dest:
+            target[k] = dict_updater(v, dest[k])
+        else:
+            target[k] = v
+    return target
+
 
 class Object():
     pass
+
 
 class ObjectFactory():
 
@@ -28,8 +43,10 @@ class SettingsObjectFactory():
         self.settings = settings
 
     def get_settings(self, env:str):
-        env_settings = self.settings.get('common', {})
-        env_settings.update(self.settings[env])
+        common_settings = self.settings.get('common', {})
+        env_specific_settings = self.settings[env]
+
+        env_settings = dict_updater(env_specific_settings, common_settings)
         return ObjectFactory(env_settings).create()
 
 
@@ -44,7 +61,8 @@ def create(env:str, settings:str, secrets:dict=None):
     if secrets and env in secrets:
         with open(secrets[env], 'rt') as f:
             secret_data = yaml.load(f.read())
-        settings_data[env].update(secret_data)
+        env_settings_with_secrets = dict_updater(secret_data, settings_data[env])
+        settings_data[env] = env_settings_with_secrets
 
     return SettingsObjectFactory(settings_data).get_settings(env)
 
