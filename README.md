@@ -38,6 +38,8 @@ settings.py
 filename = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'settings.yaml')
 production_secrets = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'production_secret.yaml')
 
+s = settings.create(env='production', settings=filename, secrets={'production':self.production_secrets})
+
 assert s.value == 5
 assert s.setting == 2
 assert s.somecomp.username == 'mysecretusername'
