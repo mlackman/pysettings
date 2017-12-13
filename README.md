@@ -5,6 +5,9 @@ Simple yaml settings configuration
 
 Define the settings files
 
+All the settings can be overwritten by environment variables. Overwrite can be done with env var like
+settings.somecomp.username=myusername
+
 settings.yaml
 
 ```YAML
